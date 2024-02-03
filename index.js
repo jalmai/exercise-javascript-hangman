@@ -1,4 +1,44 @@
-let hangmanPartsArr = ["ground", "head", "body", "arms", "legs", "scaffold"];
+const hangmanPartsArr = ["ground", "head", "body", "arms", "legs", "scaffold"];
+const letters = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "å",
+  "ä",
+  "ö",
+];
+const words = [
+  "tvålen",
+  "zebra",
+  "omständigheter",
+  "sommar",
+  "flingor",
+  "urmakare",
+  "bajs",
+];
 let hangmanParts = [];
 let round = 0;
 let gameOver = true;
@@ -25,6 +65,16 @@ function startGame() {
     hangmanParts.push(a);
   });
 }
+function refreshLetters() {
+  let letterSection = document.querySelector(".hangman-letters");
+  letters.forEach((e) => {
+    let p = document.createElement("label");
+    p.setAttribute("class", "letter-" + e);
+    p.innerText = e;
+    console.log(p);
+    letterSection.appendChild(p);
+  });
+}
 function refreshHangman() {
   hangmanParts.forEach((e) => {
     if (e.display) {
@@ -38,4 +88,5 @@ function refreshHangman() {
 document.addEventListener("DOMContentLoaded", function () {
   startGame();
   refreshHangman();
+  refreshLetters();
 });
