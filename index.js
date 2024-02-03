@@ -68,7 +68,7 @@ function startGame() {
 function refreshLetters() {
   let letterSection = document.querySelector(".hangman-letters");
   letters.forEach((e) => {
-    let p = document.createElement("label");
+    let p = document.createElement("button");
     p.setAttribute("class", "letter-" + e);
     p.innerText = e;
     console.log(p);

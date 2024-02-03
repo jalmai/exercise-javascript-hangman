@@ -1,0 +1,6 @@
+.hangman-letters button {
+  font-size: 2em;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  text-transform: uppercase;
+  margin: 5px;
+}
