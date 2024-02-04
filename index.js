@@ -43,7 +43,7 @@ let hangmanParts = [];
 let round = 0;
 let gameOver = true;
 let correctGuesses = [];
-let secretWord = "äppelpaj";
+let secretWord = words[Math.floor(Math.random() * words.length)];
 
 class hangmanPart {
   constructor(element, display, index) {
