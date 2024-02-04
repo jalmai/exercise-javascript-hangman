@@ -42,6 +42,7 @@ const words = [
 let hangmanParts = [];
 let round = 0;
 let gameOver = true;
+let secretWord = "banan";
 
 class hangmanPart {
   constructor(element, display, index) {
@@ -65,7 +66,6 @@ function startGame() {
     hangmanParts.push(a);
   });
 }
-// ! Här nedan är det knasigt. Buttoms-foreach ska inte ligga i loopen
 function refreshLetters() {
   let letterSection = document.querySelector(".hangman-letters");
   letters.forEach((e) => {
@@ -78,16 +78,29 @@ function refreshLetters() {
   console.log(buttons);
   Array.from(buttons).forEach((element) => {
     element.addEventListener("click", function () {
-      wrongLetter(element);
+      checkLetter(element);
     });
   });
 }
+function checkLetter(element) {
+  let letter = element.innerText;
+  if (secretWord.includes(letter.toLowerCase())) {
+    correctLetter(element);
+  } else {
+    wrongLetter(element);
+  }
+}
 function wrongLetter(element) {
   element.classList.add("wrong-letter");
+  console.log(element.innerText);
   Array.from(hangmanParts)[round].display = true;
   console.log(hangmanParts[round]);
   round++;
   console.log(round);
+  refreshHangman();
+}
+function correctLetter(element) {
+  element.classList.add("correct-letter");
   refreshHangman();
 }
 function refreshHangman() {
@@ -100,7 +113,6 @@ function refreshHangman() {
     }
   });
 }
-
 document.addEventListener("DOMContentLoaded", function () {
   startGame();
   refreshHangman();
