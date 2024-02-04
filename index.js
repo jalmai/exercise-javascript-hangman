@@ -42,6 +42,7 @@ const words = [
 let hangmanParts = [];
 let round = 0;
 let gameOver = true;
+let correctGuesses = [];
 let secretWord = "banan";
 
 class hangmanPart {
@@ -82,9 +83,23 @@ function refreshLetters() {
     });
   });
 }
+function refreshSecretWord() {
+  let wordSection = document.querySelector(".hangman-word");
+  wordSection.innerHTML = "";
+  for (let index = 0; index < secretWord.length; index++) {
+    let secretLetter = secretWord.charAt(index);
+    console.log(correctGuesses);
+    console.log(secretLetter);
+    if (correctGuesses.includes(secretLetter)) {
+      wordSection.append(secretWord.charAt(index));
+    } else {
+      wordSection.append("_");
+    }
+  }
+}
 function checkLetter(element) {
-  let letter = element.innerText;
-  if (secretWord.includes(letter.toLowerCase())) {
+  let letter = element.innerText.toLowerCase();
+  if (secretWord.includes(letter)) {
     correctLetter(element);
   } else {
     wrongLetter(element);
@@ -92,16 +107,19 @@ function checkLetter(element) {
 }
 function wrongLetter(element) {
   element.classList.add("wrong-letter");
-  console.log(element.innerText);
   Array.from(hangmanParts)[round].display = true;
   console.log(hangmanParts[round]);
   round++;
   console.log(round);
   refreshHangman();
+  refreshSecretWord();
 }
 function correctLetter(element) {
   element.classList.add("correct-letter");
+  correctGuesses.push(element.innerText.toLowerCase());
+  console.log(correctGuesses);
   refreshHangman();
+  refreshSecretWord();
 }
 function refreshHangman() {
   console.log("refresh hangman");
@@ -117,4 +135,5 @@ document.addEventListener("DOMContentLoaded", function () {
   startGame();
   refreshHangman();
   refreshLetters();
+  refreshSecretWord();
 });
