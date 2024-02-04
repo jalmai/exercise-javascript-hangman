@@ -1,44 +1,4 @@
 const hangmanPartsArr = ["ground", "head", "body", "arms", "legs", "scaffold"];
-const letters = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  "å",
-  "ä",
-  "ö",
-];
-const words = [
-  "tvålen",
-  "zebra",
-  "omständigheter",
-  "sommar",
-  "flingor",
-  "urmakare",
-  "bajs",
-];
 let hangmanParts = [];
 let correctLetters = [];
 let round = 0;
@@ -47,6 +7,7 @@ let buttons = document.getElementsByClassName("letter-button");
 
 let wordSection = document.querySelector(".hangman-word");
 let letterSection = document.querySelector(".hangman-letters");
+let resetButton = document.querySelector(".reset-button");
 
 class hangmanPart {
   constructor(element, display, index) {
@@ -62,6 +23,7 @@ function resetGame() {
   correctLetters = [];
   round = 0;
   hangmanParts = [];
+  resetButton.classList.remove("failed");
 }
 function failGame() {
   console.log("You failed. The secret word was " + secretWord.toUpperCase());
@@ -72,6 +34,7 @@ function winGame() {
   gameOver();
 }
 function gameOver() {
+  resetButton.classList.add("failed");
   Array.from(buttons).forEach((element) => {
     element.disabled = true;
   });
@@ -162,11 +125,9 @@ function refreshHangman() {
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .querySelector(".reset-button")
-    .addEventListener("click", function () {
-      console.log("--- restart button pushed ---");
-      startGame();
-    });
+  resetButton.addEventListener("click", function () {
+    console.log("--- restart button pushed ---");
+    startGame();
+  });
   startGame();
 });

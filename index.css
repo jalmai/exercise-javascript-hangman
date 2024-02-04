@@ -22,8 +22,6 @@ body {
 }
 .reset-button {
   position: absolute;
-  height: 200px;
-  width: 200px;
   font-size: 2em;
   background-color: rgba(48, 17, 17, 0.3);
   border: 0px;
@@ -31,6 +29,28 @@ body {
   top: 10%;
   left: 10%;
   color: white;
+}
+.failed {
+  background-color: rgba(15, 114, 81, 0.94);
+  animation: 3s 1 forwards slidein;
+  text-transform: uppercase;
+}
+
+@keyframes slidein {
+  from {
+    height: 200px;
+    width: 200px;
+    font-size: 1em;
+  }
+
+  to {
+    height: 400px;
+    width: 400px;
+    font-size: 3.5em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 .reset-button:hover {
   background-color: rgba(48, 17, 17, 0.7);
