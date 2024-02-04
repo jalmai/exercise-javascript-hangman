@@ -3,7 +3,7 @@ let hangmanParts = [];
 let correctLetters = [];
 let round = 0;
 let secretWord;
-let buttons = document.getElementsByClassName("letter-button");
+let letterButtons = document.getElementsByClassName("letter-button");
 
 let wordSection = document.querySelector(".hangman-word");
 let letterSection = document.querySelector(".hangman-letters");
@@ -35,7 +35,7 @@ function winGame() {
 }
 function gameOver() {
   resetButton.classList.add("failed");
-  Array.from(buttons).forEach((element) => {
+  Array.from(letterButtons).forEach((element) => {
     element.disabled = true;
   });
 }
@@ -54,13 +54,13 @@ function startGame() {
   console.log("Game started");
 }
 function refreshLetters() {
-  letters.forEach((e) => {
+  letters.forEach((letter) => {
     let p = document.createElement("button");
-    p.setAttribute("class", "letter-" + e + ", letter-button");
-    p.innerText = e;
+    p.setAttribute("class", "letter-" + letter + ", letter-button");
+    p.innerText = letter;
     letterSection.appendChild(p);
   });
-  Array.from(buttons).forEach((element) => {
+  Array.from(letterButtons).forEach((element) => {
     element.addEventListener("click", function () {
       checkLetter(element);
     });
