@@ -43,7 +43,7 @@ let hangmanParts = [];
 let round = 0;
 let gameOver = true;
 let correctGuesses = [];
-let secretWord = "banan";
+let secretWord = "äppelpaj";
 
 class hangmanPart {
   constructor(element, display, index) {
@@ -66,6 +66,7 @@ function startGame() {
     let a = new hangmanPart(part, false, index);
     hangmanParts.push(a);
   });
+  console.log("Game started");
 }
 function refreshLetters() {
   let letterSection = document.querySelector(".hangman-letters");
@@ -76,7 +77,6 @@ function refreshLetters() {
     letterSection.appendChild(p);
   });
   let buttons = document.getElementsByClassName("letter-button");
-  console.log(buttons);
   Array.from(buttons).forEach((element) => {
     element.addEventListener("click", function () {
       checkLetter(element);
@@ -88,14 +88,13 @@ function refreshSecretWord() {
   wordSection.innerHTML = "";
   for (let index = 0; index < secretWord.length; index++) {
     let secretLetter = secretWord.charAt(index);
-    console.log(correctGuesses);
-    console.log(secretLetter);
     if (correctGuesses.includes(secretLetter)) {
       wordSection.append(secretWord.charAt(index));
     } else {
       wordSection.append("_");
     }
   }
+  refreshHangman();
 }
 function checkLetter(element) {
   let letter = element.innerText.toLowerCase();
@@ -107,22 +106,21 @@ function checkLetter(element) {
 }
 function wrongLetter(element) {
   element.classList.add("wrong-letter");
+  element.disabled = true;
   Array.from(hangmanParts)[round].display = true;
-  console.log(hangmanParts[round]);
   round++;
-  console.log(round);
-  refreshHangman();
+
+  console.log("Wrong guess. Another part of the hangman is now visible");
   refreshSecretWord();
 }
 function correctLetter(element) {
   element.classList.add("correct-letter");
+  element.disabled = true;
   correctGuesses.push(element.innerText.toLowerCase());
-  console.log(correctGuesses);
-  refreshHangman();
+  console.log("correct guess. The letter is now showing in the secret word");
   refreshSecretWord();
 }
 function refreshHangman() {
-  console.log("refresh hangman");
   hangmanParts.forEach((e) => {
     if (e.display) {
       e.element.setAttribute("opacity", 1);
@@ -130,10 +128,11 @@ function refreshHangman() {
       e.element.setAttribute("opacity", 0);
     }
   });
+  console.log("The hangman is successfully refreshed");
 }
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("sidan har laddats in");
   startGame();
-  refreshHangman();
   refreshLetters();
   refreshSecretWord();
 });
