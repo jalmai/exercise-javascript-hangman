@@ -44,7 +44,7 @@ let round = 0;
 let gameOver = true;
 let correctGuesses = [];
 let secretWord = words[Math.floor(Math.random() * words.length)];
-
+let buttons = document.getElementsByClassName("letter-button");
 class hangmanPart {
   constructor(element, display, index) {
     this.element = element;
@@ -54,10 +54,9 @@ class hangmanPart {
 }
 
 function endGame() {
-  hangmanPartsArr.forEach((e) => {
-    let part = document.getElementById(e);
-    part.setAttribute("opacity", 1);
-    console.log("display hangman part: " + e);
+  alert("You loose!");
+  Array.from(buttons).forEach((element) => {
+    element.disabled = true;
   });
 }
 function startGame() {
@@ -76,7 +75,6 @@ function refreshLetters() {
     p.innerText = e;
     letterSection.appendChild(p);
   });
-  let buttons = document.getElementsByClassName("letter-button");
   Array.from(buttons).forEach((element) => {
     element.addEventListener("click", function () {
       checkLetter(element);
@@ -121,14 +119,21 @@ function correctLetter(element) {
   refreshSecretWord();
 }
 function refreshHangman() {
+  let failcount = 0;
+
   hangmanParts.forEach((e) => {
     if (e.display) {
       e.element.setAttribute("opacity", 1);
+      failcount++;
     } else {
       e.element.setAttribute("opacity", 0);
     }
   });
-  console.log("The hangman is successfully refreshed");
+  if (failcount === hangmanParts.length) {
+    endGame();
+  } else {
+    console.log("The hangman is successfully refreshed");
+  }
 }
 document.addEventListener("DOMContentLoaded", function () {
   console.log("sidan har laddats in");
