@@ -4,3 +4,9 @@
   text-transform: uppercase;
   margin: 5px;
 }
+.correct-letter {
+  background-color: green;
+}
+.wrong-letter {
+  background-color: red;
+}

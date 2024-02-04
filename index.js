@@ -65,17 +65,33 @@ function startGame() {
     hangmanParts.push(a);
   });
 }
+// ! Här nedan är det knasigt. Buttoms-foreach ska inte ligga i loopen
 function refreshLetters() {
   let letterSection = document.querySelector(".hangman-letters");
   letters.forEach((e) => {
     let p = document.createElement("button");
-    p.setAttribute("class", "letter-" + e);
+    p.setAttribute("class", "letter-" + e + ", letter-button");
     p.innerText = e;
-    console.log(p);
     letterSection.appendChild(p);
   });
+  let buttons = document.getElementsByClassName("letter-button");
+  console.log(buttons);
+  Array.from(buttons).forEach((element) => {
+    element.addEventListener("click", function () {
+      wrongLetter(element);
+    });
+  });
+}
+function wrongLetter(element) {
+  element.classList.add("wrong-letter");
+  Array.from(hangmanParts)[round].display = true;
+  console.log(hangmanParts[round]);
+  round++;
+  console.log(round);
+  refreshHangman();
 }
 function refreshHangman() {
+  console.log("refresh hangman");
   hangmanParts.forEach((e) => {
     if (e.display) {
       e.element.setAttribute("opacity", 1);
