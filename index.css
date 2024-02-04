@@ -20,3 +20,18 @@
 body {
   text-align: center;
 }
+.reset-button {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  font-size: 2em;
+  background-color: rgba(48, 17, 17, 0.3);
+  border: 0px;
+  border-radius: 10px;
+  top: 10%;
+  left: 10%;
+  color: white;
+}
+.reset-button:hover {
+  background-color: rgba(48, 17, 17, 0.7);
+}
