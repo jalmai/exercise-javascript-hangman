@@ -40,10 +40,14 @@ const words = [
   "bajs",
 ];
 let hangmanParts = [];
+let correctLetters = [];
 let round = 0;
-let correctGuesses = [];
 let secretWord;
 let buttons = document.getElementsByClassName("letter-button");
+
+let wordSection = document.querySelector(".hangman-word");
+let letterSection = document.querySelector(".hangman-letters");
+
 class hangmanPart {
   constructor(element, display, index) {
     this.element = element;
@@ -51,20 +55,20 @@ class hangmanPart {
     this.index = index;
   }
 }
-let wordSection = document.querySelector(".hangman-word");
-let letterSection = document.querySelector(".hangman-letters");
+
 function resetGame() {
   secretWord = words[Math.floor(Math.random() * words.length)];
-  correctGuesses = [];
+  console.log("The new secret word is " + secretWord.toUpperCase());
+  correctLetters = [];
   round = 0;
   hangmanParts = [];
 }
 function failGame() {
-  console.log("you failed. The secret word was " + secretWord);
+  console.log("You failed. The secret word was " + secretWord.toUpperCase());
   gameOver();
 }
 function winGame() {
-  console.log("you won! The secret word was " + secretWord);
+  console.log("you won! The secret word was " + secretWord.toUpperCase());
   gameOver();
 }
 function gameOver() {
@@ -73,17 +77,18 @@ function gameOver() {
   });
 }
 function startGame() {
+  console.log("----- STARTING GAME ------");
   resetGame();
   hangmanPartsArr.forEach((e, index) => {
     let part = document.getElementById(e);
     let a = new hangmanPart(part, false, index);
     hangmanParts.push(a);
   });
-  console.log("Game started");
   letterSection.innerHTML = "";
   refreshLetters();
   wordSection.innerHTML = "";
   refreshSecretWord();
+  console.log("Game started");
 }
 function refreshLetters() {
   letters.forEach((e) => {
@@ -103,7 +108,7 @@ function refreshSecretWord() {
   let wincount = 0;
   for (let index = 0; index < secretWord.length; index++) {
     let secretLetter = secretWord.charAt(index);
-    if (correctGuesses.includes(secretLetter)) {
+    if (correctLetters.includes(secretLetter)) {
       wordSection.append(secretWord.charAt(index));
       wincount++;
     } else {
@@ -136,8 +141,9 @@ function wrongLetter(element) {
 function correctLetter(element) {
   element.classList.add("correct-letter");
   element.disabled = true;
-  correctGuesses.push(element.innerText.toLowerCase());
-  console.log("correct guess.");
+  let corrLetter = element.innerText.toLowerCase();
+  correctLetters.push(corrLetter);
+  console.log("Correct guess!");
   refreshSecretWord();
 }
 function refreshHangman() {
@@ -153,17 +159,14 @@ function refreshHangman() {
   });
   if (failcount === hangmanParts.length) {
     failGame();
-  } else {
-    console.log("The hangman is successfully refreshed");
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
   document
     .querySelector(".reset-button")
     .addEventListener("click", function () {
-      console.log("restarting game");
+      console.log("--- restart button pushed ---");
       startGame();
     });
-  console.log("Starting a new game");
   startGame();
 });
