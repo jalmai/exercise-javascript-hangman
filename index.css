@@ -10,3 +10,10 @@
 .wrong-letter {
   background-color: red;
 }
+.hangman-word {
+  padding: 20px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1em;
+  font-size: 2em;
+}
